@@ -1,0 +1,43 @@
+﻿<Window x:Class="Stock_Market_App.AddUser"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Stock_Market_App"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="AddUser" Height="450" Width="500">
+    <Grid>
+        <StackPanel>
+            <Label Content="New User Information" FontFamily="Panton Caps" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Margin="0,20,0,0"/>
+            <Grid Margin="0,40,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="45*"/>
+                    <ColumnDefinition Width="55*"/>
+
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Content="Name" Margin="0,0,0,10" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Panton Caps" FontSize="24"></Label>
+                <TextBox x:Name="newUserNameTextBox" Grid.Column="1" Grid.Row="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Panton Caps" FontSize="20px" Margin="0,0,20,10"></TextBox>
+
+                <Label Content="Broker" Margin="0,0,0,10" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Panton Caps" FontSize="24"></Label>
+                <TextBox x:Name="newUserBrokerTextBox" Grid.Column="1" Grid.Row="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Panton Caps" FontSize="20px" Margin="0,0,20,10"></TextBox>
+
+                <Label Content="User ID" Margin="0,0,0,10" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Panton Caps" FontSize="24"></Label>
+                <TextBox x:Name="newUserUserIDTextBox" Grid.Column="1" Grid.Row="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Panton Caps" FontSize="20px" Margin="0,0,20,10"></TextBox>
+
+                <Label Content="Password" Margin="0,0,0,10" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Panton Caps" FontSize="24"></Label>
+                <TextBox x:Name="newUserPasswordTextBox" Grid.Column="1" Grid.Row="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Panton Caps" FontSize="20px" Margin="0,0,20,10"></TextBox>
+
+                <Button x:Name="saveUserDetails" Content="Save Details" Margin="0,35,0,0" Width="250" FontFamily="Panton Caps" FontSize="30px" Grid.ColumnSpan="2" Grid.Row="4" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" ></Button>
+            </Grid>
+        </StackPanel>
+        
+    </Grid>
+</Window>

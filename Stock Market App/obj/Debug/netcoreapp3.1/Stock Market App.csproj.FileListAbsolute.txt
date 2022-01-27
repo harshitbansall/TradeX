@@ -1,0 +1,40 @@
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\Stock Market App.exe
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\Stock Market App.deps.json
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\Stock Market App.runtimeconfig.json
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\Stock Market App.runtimeconfig.dev.json
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\Stock Market App.dll
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\Stock Market App.pdb
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\MainWindow.g.cs
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\App.g.cs
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\Stock Market App_MarkupCompile.cache
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\Stock Market App_MarkupCompile.lref
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\MainWindow.baml
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\Stock Market App.g.resources
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\Stock Market App.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\Stock Market App.AssemblyInfoInputs.cache
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\Stock Market App.AssemblyInfo.cs
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\Stock Market App.csproj.CoreCompileInputs.cache
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\Stock Market App.dll
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\Stock Market App.pdb
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\Stock Market App.genruntimeconfig.cache
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\Stock Market App.csproj.AssemblyReference.cache
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\AddUser.g.cs
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\AddUser.baml
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\Dapper.dll
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\EntityFramework.SqlServer.dll
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\EntityFramework.dll
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\System.Data.SQLite.dll
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\System.Data.SQLite.EF6.dll
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\runtimes\linux-x64\native\SQLite.Interop.dll
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\runtimes\osx-x64\native\SQLite.Interop.dll
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\SQLite.Interop.dll
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\SQLite.Interop.dll
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\Stock Market App.csproj.CopyComplete
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\UserWindow.g.cs
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\UserWindow.baml
