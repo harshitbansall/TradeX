@@ -26,19 +26,28 @@ namespace Stock_Market_App
             InitializeComponent();
             user currentUser = userDB.getUserData(userID);
             this.Title = $"{currentUser.Name}'s Transactions";
+            List<Transaction> totalTransactions = userData.GetAllTransactions(userID);
+            transactionDataGrid.ItemsSource = totalTransactions;
+            
+            transactionDataGrid.RowEditEnding += (s, e) =>
+            {
+                if (e.EditAction == DataGridEditAction.Cancel)
+                {
+                    return;
+                }
+                if (e.EditAction == DataGridEditAction.Commit)
+                {
+                    //var cellInfo = transactionDataGrid.SelectedCells[0];
 
-            transactionDataGrid.ItemsSource = userData.GetAllTransactions(userID);
-        }
-        private void dataGrid1_RowEditEnding(object sender, DataGridRowEditEndingEventArgs e)
-        {
-            if (e.EditAction == DataGridEditAction.Cancel)
-            {
-                return;
-            }
-            if (e.EditAction == DataGridEditAction.Commit)
-            {
-                MessageBox.Show("1");
-            }
+                    //var content = (cellInfo.Column.GetCellContent(cellInfo.Item) as TextBlock).Text;
+                    //MessageBox.Show(content);
+
+
+
+                    Transaction item = transactionDataGrid.Items.GetItemAt(transactionDataGrid.SelectedIndex) as Transaction;
+                    MessageBox.Show(item.Name);
+                }
+            };
         }
         private void DataGrid_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {

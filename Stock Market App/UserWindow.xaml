@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Stock_Market_App"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Height="700">
+        Height="700" MinWidth="700" >
     <Window.Resources>
         <Style TargetType="DataGrid">
             <!-- Make the border and grid lines a little less imposing -->
@@ -73,7 +73,7 @@
     </Window.Resources>
     <Grid>
         <ScrollViewer x:Name="MyScrollViewer" VerticalScrollBarVisibility="Auto">
-            <DataGrid AddingNewItem="dataGridAddingNewItem" CanUserDeleteRows="False" CanUserReorderColumns="False" PreviewMouseWheel="DataGrid_PreviewMouseWheel" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" RowEditEnding="dataGrid1_RowEditEnding" x:Name="transactionDataGrid" AutoGenerateColumns="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+            <DataGrid AddingNewItem="dataGridAddingNewItem" CanUserDeleteRows="False" CanUserReorderColumns="False" PreviewMouseWheel="DataGrid_PreviewMouseWheel" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" x:Name="transactionDataGrid" AutoGenerateColumns="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="S.No" Width="1*" Binding="{Binding sNum}" FontFamily="Panton Caps" FontSize="17"/>
                     <DataGridTextColumn Header="Name" Width="4*" Binding="{Binding Name}" FontFamily="Panton Caps" FontSize="17"/>
