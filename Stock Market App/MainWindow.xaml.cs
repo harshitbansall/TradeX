@@ -69,6 +69,11 @@ namespace Stock_Market_App
             IDbConnection cnn = new SQLiteConnection($"Data Source=Users/{userID}.db;Version=3;");
             return cnn.Query<Transaction>("select * from Transactions").ToList();
         }
+        public static void Execute(string userID, string query)
+        {
+            IDbConnection cnn = new SQLiteConnection($"Data Source=Users/{userID}.db;Version=3;");
+            cnn.Execute(query);
+        }
     }
     public partial class MainWindow : Window
     {
