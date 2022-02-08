@@ -29,53 +29,29 @@ namespace Stock_Market_App
             Transaction currentSelectedTransaction = null;
             transactionDataGrid.SelectionChanged += (s, e) =>
             {
+                if (sellRateTextBox.Text != "")
+                {
+                    profitLossTextBox.Text = ((float.Parse(sellRateTextBox.Text) - float.Parse(buyRateTextBox.Text)) * float.Parse(quantityTextBox.Text)).ToString();
+                }
+                transactionDetailsFrame.Visibility = Visibility.Visible;
+                Grid.SetColumnSpan(userDataFrame,1);
                 currentSelectedTransaction = transactionDataGrid.Items.GetItemAt(transactionDataGrid.SelectedIndex) as Transaction;
                 nameTextBox.Text = currentSelectedTransaction.Name;
             };
             transactionDataGrid.PreviewMouseWheel += (s, e) =>
             {
-                MyScrollViewer.ScrollToVerticalOffset(MyScrollViewer.VerticalOffset - e.Delta / 3);
+                userDataFrame.ScrollToVerticalOffset(userDataFrame.VerticalOffset - e.Delta / 3);
             };
             saveTransactionButton.Click += (s, e) =>
             {
-                //MessageBox.Show(buyDatePicker.SelectedDate.ToString());
-                userData.Execute(userID, $"Update Transactions set Name = '{nameTextBox.Text}', Quantity = '{quantityTextBox.Text}', BuyDate = '{buyDatePicker.Text}' where sNum = {currentSelectedTransaction.sNum}");
+                userData.Execute(userID, $"Update Transactions set Name = '{nameTextBox.Text}', Quantity = '{quantityTextBox.Text}', BuyDate = '{buyDatePicker.Text}', BuyRate = '{buyRateTextBox.Text}', SellDate = '{sellDatePicker.Text}', SellRate = '{sellRateTextBox.Text}', ProfitLoss = '{profitLossTextBox.Text}' where sNum = {currentSelectedTransaction.sNum}");
             };
-            //transactionDataGrid.RowEditEnding += (s, e) =>
-            //{
-            //    if (e.EditAction == DataGridEditAction.Cancel)
-            //    {
-            //        return;
-            //    }
-            //    if (e.EditAction == DataGridEditAction.Commit)
-            //    {
-            //        //var cellInfo = transactionDataGrid.SelectedCells[0];
-
-            //        //var content = (cellInfo.Column.GetCellContent(cellInfo.Item) as TextBlock).Text;
-            //        //MessageBox.Show(content);
-
-
-
-            //        //Transaction item = transactionDataGrid.Items.GetItemAt(transactionDataGrid.SelectedIndex) as Transaction;
-            //        //MessageBox.Show(item.Name);
-            //    }
-            //};
+            hideTransactionDetailsButton.Click += (s, e) =>
+            {
+                transactionDetailsFrame.Visibility = Visibility.Collapsed;
+                Grid.SetColumnSpan(userDataFrame, 2);
+            };
+            
         }
-        //private void dataGridAddingNewItem(object sender, AddingNewItemEventArgs e)
-        //{
-        //    e.NewItem = new Transaction()
-        //    {
-        //        sNum = transactionDataGrid.Items.Count,
-        //        Name = "-",
-        //        Quantity = "-",
-        //        BuyDate = "-",
-        //        BuyRate = "-",
-        //        SellDate = "-",
-        //        SellRate = "-",
-        //        ProfitLoss = "-",
-
-        //    };
-
-        //}
     }
 }

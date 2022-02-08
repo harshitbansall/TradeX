@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Stock_Market_App"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Height="700" MinWidth="1350" >
+        Height="700" MinWidth="1200" >
     <Window.Resources>
         <Style TargetType="DataGrid">
             <!-- Make the border and grid lines a little less imposing -->
@@ -73,80 +73,68 @@
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="9*"></ColumnDefinition>
             <ColumnDefinition Width="3*"></ColumnDefinition>
-            <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ScrollViewer x:Name="MyScrollViewer" VerticalScrollBarVisibility="Auto" Grid.Column="0">
+        <ScrollViewer x:Name="userDataFrame" VerticalScrollBarVisibility="Auto" Grid.Column="0" HorizontalAlignment="Stretch" Grid.ColumnSpan="2">
             <DataGrid x:Name="transactionDataGrid" IsReadOnly="True" CanUserDeleteRows="False" CanUserReorderColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AutoGenerateColumns="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="S.No" Width="1*" Binding="{Binding sNum}" FontFamily="Panton Caps" FontSize="17"/>
+                    <DataGridTextColumn Header="S.No" Width="2*" Binding="{Binding sNum}" FontFamily="Panton Caps" FontSize="17"/>
                     <DataGridTextColumn Header="Name" Width="6*" Binding="{Binding Name}" FontFamily="Panton Caps" FontSize="17"/>
-
-                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="2*" FontFamily="Panton Caps" FontSize="17"/>
-                
-                
-                <DataGridTemplateColumn Header="Buy Date" Width="4*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding BuyDate,StringFormat=dd/MM/yyyy}" FontFamily="Panton Caps" FontSize="17" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <DatePicker SelectedDate="{Binding BuyDate,StringFormat=dd/MM/yyyy}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTextColumn Header="Buy Rate" Binding="{Binding BuyRate}" Width="2*" FontFamily="Panton Caps" FontSize="17"/>
-
-                <DataGridTemplateColumn Header="Sell Date" Width="4*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding SellDate,StringFormat=dd/MM/yyyy}" FontFamily="Panton Caps" FontSize="17" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                    <DataGridTemplateColumn.CellEditingTemplate>
-                        <DataTemplate>
-                            <DatePicker SelectedDate="{Binding SellDate,StringFormat=dd/MM/yyyy}" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellEditingTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTextColumn Header="Sell Rate" Binding="{Binding SellRate}" Width="2*" FontFamily="Panton Caps" FontSize="17"/>
-
-                <DataGridTextColumn Header="Profit Loss" Binding="{Binding ProfitLoss}" Width="3*" FontFamily="Panton Caps" FontSize="17"/>
-
-            </DataGrid.Columns>
-        </DataGrid>
-            
+                    <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="3*" FontFamily="Panton Caps" FontSize="17"/>
+                    <DataGridTextColumn Header="Buy Date" Binding="{Binding BuyDate}"  Width="4*" FontFamily="Panton Caps" FontSize="17"/>
+                    <DataGridTextColumn Header="Buy Rate" Binding="{Binding BuyRate}" Width="3*" FontFamily="Panton Caps" FontSize="17"/>
+                    <DataGridTextColumn Header="Sell Date" Binding="{Binding SellDate}" Width="4*" FontFamily="Panton Caps" FontSize="17"/>
+                    <DataGridTextColumn Header="Sell Rate" Binding="{Binding SellRate}" Width="3*" FontFamily="Panton Caps" FontSize="17"/>
+                    <DataGridTextColumn Header="Profit Loss" Binding="{Binding ProfitLoss}" Width="3*" FontFamily="Panton Caps" FontSize="17"/>
+                </DataGrid.Columns>
+            </DataGrid>
         </ScrollViewer>
-        <StackPanel Grid.Column="1" Margin="0,0,10,0">
-            <Label HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" FontSize="30" Content="Transaction Data" Margin="0,30,0,30"></Label>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                    <ColumnDefinition Width="3*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Label Content="Name" Grid.Column="0" Grid.Row="0" Margin="10,0,0,0"></Label>
-                <TextBox Text="{Binding SelectedItem.Name, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="nameTextBox" Grid.Column="1" Grid.Row="0" Margin="10,0,10,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+        <Border x:Name="transactionDetailsFrame" BorderBrush="Black" BorderThickness="1" Grid.Column="1" Margin="5,0,5,5" Visibility="Collapsed">
+            <StackPanel>
+                <Label HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" FontSize="30" Content="Transaction Data" Margin="0,30,0,30"></Label>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Name" Grid.Column="0" Grid.Row="0" Margin="10,0,0,10"></Label>
+                    <TextBox Text="{Binding SelectedItem.Name, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="nameTextBox" Grid.Column="1" Grid.Row="0" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
 
-                <Label Content="Quantity" Grid.Column="0" Grid.Row="1" Margin="10,0,0,0"></Label>
-                <TextBox Text="{Binding SelectedItem.Quantity, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="quantityTextBox" Grid.Column="1" Grid.Row="1 " Margin="10,0,10,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                    <Label Content="Quantity" Grid.Column="0" Grid.Row="1" Margin="10,0,0,10"></Label>
+                    <TextBox Text="{Binding SelectedItem.Quantity, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="quantityTextBox" Grid.Column="1" Grid.Row="1" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
 
-                <Label Content="Buy Date" Grid.Column="0" Grid.Row="2" Margin="10,0,0,0"></Label>
-                <DatePicker Name="buyDatePicker" Text="{Binding SelectedItem.BuyDate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Height="Auto" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Width="Auto" HorizontalContentAlignment="Center" />
-                
-                <Button x:Name="saveTransactionButton" Content="Save" Margin="10,20,10,0" FontSize="20" Grid.ColumnSpan="2" Grid.Row="4" Grid.Column="0"/>
-            </Grid>
-            
-        </StackPanel>
+                    <Label Content="Buy Date" Grid.Column="0" Grid.Row="2" Margin="10,0,0,10"></Label>
+                    <DatePicker Name="buyDatePicker" Text="{Binding SelectedItem.BuyDate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="0,0,0,10" Height="Auto" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Width="Auto" HorizontalContentAlignment="Center" />
+
+                    <Label Content="Buy Rate" Grid.Column="0" Grid.Row="3" Margin="10,0,0,10"></Label>
+                    <TextBox Text="{Binding SelectedItem.BuyRate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="buyRateTextBox" Grid.Column="1" Grid.Row="3" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+
+                    <Label Content="Sell Date" Grid.Column="0" Grid.Row="4" Margin="10,0,0,10"></Label>
+                    <DatePicker Name="sellDatePicker" Text="{Binding SelectedItem.SellDate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="0,0,0,10" Height="Auto" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" Width="Auto" HorizontalContentAlignment="Center" />
+                    
+                    <Label Content="Sell Rate" Grid.Column="0" Grid.Row="5" Margin="10,0,0,10"></Label>
+                    <TextBox Text="{Binding SelectedItem.SellRate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="sellRateTextBox" Grid.Column="1" Grid.Row="5" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                    
+                    <Label Content="P/L" Grid.Column="0" Grid.Row="6" Margin="10,0,0,10" HorizontalAlignment="Center"></Label>
+                    <TextBox Text="{Binding SelectedItem.ProfitLoss, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="profitLossTextBox" IsEnabled="False" Grid.Column="1" Grid.Row="6" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                    
+                    <Button x:Name="saveTransactionButton" Content="Save Transaction" Margin="10,20,10,0" FontSize="20" Grid.ColumnSpan="2" Grid.Row="7" Grid.Column="0"/>
+                    <Button x:Name="hideTransactionDetailsButton" Content="Hide Panel" Margin="10,5,10,0" FontSize="20" Grid.ColumnSpan="2" Grid.Row="8" Grid.Column="0"/>
+                </Grid>
+
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>
