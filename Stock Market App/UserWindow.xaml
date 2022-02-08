@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Stock_Market_App"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Height="700" MinWidth="720" >
+        Height="700" MinWidth="1350" >
     <Window.Resources>
         <Style TargetType="DataGrid">
             <!-- Make the border and grid lines a little less imposing -->
@@ -80,12 +80,12 @@
             <DataGrid x:Name="transactionDataGrid" IsReadOnly="True" CanUserDeleteRows="False" CanUserReorderColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AutoGenerateColumns="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="S.No" Width="1*" Binding="{Binding sNum}" FontFamily="Panton Caps" FontSize="17"/>
-                    <DataGridTextColumn Header="Name" Width="4*" Binding="{Binding Name}" FontFamily="Panton Caps" FontSize="17"/>
+                    <DataGridTextColumn Header="Name" Width="6*" Binding="{Binding Name}" FontFamily="Panton Caps" FontSize="17"/>
 
                     <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="2*" FontFamily="Panton Caps" FontSize="17"/>
                 
                 
-                <DataGridTemplateColumn Header="Buy Date" Width="5*">
+                <DataGridTemplateColumn Header="Buy Date" Width="4*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding BuyDate,StringFormat=dd/MM/yyyy}" FontFamily="Panton Caps" FontSize="17" />
@@ -100,7 +100,7 @@
 
                 <DataGridTextColumn Header="Buy Rate" Binding="{Binding BuyRate}" Width="2*" FontFamily="Panton Caps" FontSize="17"/>
 
-                <DataGridTemplateColumn Header="Sell Date" Width="5*">
+                <DataGridTemplateColumn Header="Sell Date" Width="4*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding SellDate,StringFormat=dd/MM/yyyy}" FontFamily="Panton Caps" FontSize="17" />
@@ -133,12 +133,18 @@
                     <RowDefinition/>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Label Content="Name" Grid.Column="0" Grid.Row="0" Margin="10,0,0,0"></Label>
                 <TextBox Text="{Binding SelectedItem.Name, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="nameTextBox" Grid.Column="1" Grid.Row="0" Margin="10,0,10,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
 
+                <Label Content="Quantity" Grid.Column="0" Grid.Row="1" Margin="10,0,0,0"></Label>
+                <TextBox Text="{Binding SelectedItem.Quantity, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="quantityTextBox" Grid.Column="1" Grid.Row="1 " Margin="10,0,10,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
 
-                <Button x:Name="saveTransactionButton" Content="Save" Margin="10,20,10,0" FontSize="20" Grid.ColumnSpan="2" Grid.Row="3" Grid.Column="0"/>
+                <Label Content="Buy Date" Grid.Column="0" Grid.Row="2" Margin="10,0,0,0"></Label>
+                <DatePicker Name="buyDatePicker" Text="{Binding SelectedItem.BuyDate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Height="Auto" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Width="Auto" HorizontalContentAlignment="Center" />
+                
+                <Button x:Name="saveTransactionButton" Content="Save" Margin="10,20,10,0" FontSize="20" Grid.ColumnSpan="2" Grid.Row="4" Grid.Column="0"/>
             </Grid>
             
         </StackPanel>

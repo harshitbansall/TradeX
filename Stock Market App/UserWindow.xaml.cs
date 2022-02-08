@@ -38,7 +38,8 @@ namespace Stock_Market_App
             };
             saveTransactionButton.Click += (s, e) =>
             {
-                userData.Execute(userID, $"Update Transactions set Name = '{nameTextBox.Text}' where sNum = {currentSelectedTransaction.sNum}");
+                //MessageBox.Show(buyDatePicker.SelectedDate.ToString());
+                userData.Execute(userID, $"Update Transactions set Name = '{nameTextBox.Text}', Quantity = '{quantityTextBox.Text}', BuyDate = '{buyDatePicker.Text}' where sNum = {currentSelectedTransaction.sNum}");
             };
             //transactionDataGrid.RowEditEnding += (s, e) =>
             //{
