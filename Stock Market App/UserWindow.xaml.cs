@@ -69,7 +69,6 @@ namespace Stock_Market_App
             user currentUser = userDB.getUserData(userID);
             this.Title = $"{currentUser.Name}'s Transactions";
             List<Transaction> totalTransactions = userData.GetAllTransactions(userID);
-            totalTransactions.Reverse();
             transactionDataGrid.ItemsSource = totalTransactions;
 
             Transaction currentSelectedTransaction = null;
@@ -81,9 +80,13 @@ namespace Stock_Market_App
                 
 
             };
-            transactionDataGrid.PreviewMouseWheel += (s, e) =>
+            addTransactionButton.Click += (s, e) =>
             {
-                userDataFrame.ScrollToVerticalOffset(userDataFrame.VerticalOffset - e.Delta / 3);
+                Transaction newTransaction = new Transaction() { sNum = transactionDataGrid.Items.Count + 1, Name = "", Quantity = "", BuyDate = "", BuyRate = "", SellDate = "", SellRate = "", ProfitLoss = "" };
+                totalTransactions.Add(newTransaction);
+                userData.Execute(userID, $"Insert into Transactions values ({newTransaction.sNum},'','','','','','','')");
+                transactionDataGrid.SelectedIndex = newTransaction.sNum-1;
+                transactionDataGrid.Items.Refresh();
             };
             saveTransactionButton.Click += (s, e) =>
             {
@@ -101,13 +104,19 @@ namespace Stock_Market_App
                 }
                 transactionDataGrid.Items.Refresh();
                 userData.Execute(userID, $"Update Transactions set Name = '{nameTextBox.Text}', Quantity = '{quantityTextBox.Text}', BuyDate = '{buyDatePicker.Text}', BuyRate = '{buyRateTextBox.Text}', SellDate = '{sellDatePicker.Text}', SellRate = '{sellRateTextBox.Text}', ProfitLoss = '{profitLoss}' where sNum = {currentSelectedTransaction.sNum}");
+                transactionDetailsFrame.Visibility = Visibility.Collapsed;
+                Grid.SetColumnSpan(userDataFrame, 2);
+                MessageBox.Show("Saved Transaction");
             };
             hideTransactionDetailsButton.Click += (s, e) =>
             {
                 transactionDetailsFrame.Visibility = Visibility.Collapsed;
                 Grid.SetColumnSpan(userDataFrame, 2);
             };
-            
+            transactionDataGrid.PreviewMouseWheel += (s, e) =>
+            {
+                userDataScrollViewer.ScrollToVerticalOffset(userDataScrollViewer.VerticalOffset - e.Delta / 3);
+            };
         }
         #region PropertyChangeFunctions
         public event PropertyChangedEventHandler PropertyChanged;
