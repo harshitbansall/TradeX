@@ -1,20 +1,11 @@
-﻿using Dapper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Data.SQLite;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace Stock_Market_App
 {
@@ -89,8 +80,6 @@ namespace Stock_Market_App
                 transactionDetailsFrame.Visibility = Visibility.Visible;
                 Grid.SetColumnSpan(userDataFrame,1);
                 currentSelectedTransaction = transactionDataGrid.SelectedItem as Transaction;
-                
-
             };
             addTransactionButton.Click += (s, e) =>
             {
@@ -131,7 +120,6 @@ namespace Stock_Market_App
             };
             logoutButton.Click += (s, e) =>
             {
-                
                 MainWindow main = new MainWindow();
                 main.Show();
                 this.Close();
