@@ -1,9 +1,11 @@
 ﻿using Dapper;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SQLite;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,7 +18,50 @@ using System.Windows.Shapes;
 
 namespace Stock_Market_App
 {
-    public partial class UserWindow : Window
+    public class ProfitLoss : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            try
+            {
+                decimal buyRate = (values[1] != null && values[1] != DependencyProperty.UnsetValue) ? System.Convert.ToDecimal(values[1]) : 0;
+                decimal sellRate = (values[0] != null && values[0] != DependencyProperty.UnsetValue) ? System.Convert.ToDecimal(values[0]) : 0;
+                decimal quantity = (values[2] != null && values[2] != DependencyProperty.UnsetValue) ? System.Convert.ToDecimal(values[2]) : 0;
+                string profitLoss = ((sellRate - buyRate) * quantity).ToString();
+                return profitLoss;
+            }
+            catch
+            {
+                return "Not Applicable";
+            }
+        }
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class Margin : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            try
+            {
+                decimal Rate = (values[0] != null && values[0] != DependencyProperty.UnsetValue) ? System.Convert.ToDecimal(values[0]) : 0;
+                decimal quantity = (values[1] != null && values[1] != DependencyProperty.UnsetValue) ? System.Convert.ToDecimal(values[1]) : 0;
+                string Margin = (Rate * quantity).ToString();
+                return Margin;
+            }
+            catch
+            {
+                return "Not Applicable";
+            }
+        }
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, System.Globalization.CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public partial class UserWindow : Window, INotifyPropertyChanged
     {
         public UserWindow(string userID)
         {
@@ -24,19 +69,17 @@ namespace Stock_Market_App
             user currentUser = userDB.getUserData(userID);
             this.Title = $"{currentUser.Name}'s Transactions";
             List<Transaction> totalTransactions = userData.GetAllTransactions(userID);
+            totalTransactions.Reverse();
             transactionDataGrid.ItemsSource = totalTransactions;
 
             Transaction currentSelectedTransaction = null;
             transactionDataGrid.SelectionChanged += (s, e) =>
             {
-                if (sellRateTextBox.Text != "")
-                {
-                    profitLossTextBox.Text = ((float.Parse(sellRateTextBox.Text) - float.Parse(buyRateTextBox.Text)) * float.Parse(quantityTextBox.Text)).ToString();
-                }
                 transactionDetailsFrame.Visibility = Visibility.Visible;
                 Grid.SetColumnSpan(userDataFrame,1);
                 currentSelectedTransaction = transactionDataGrid.Items.GetItemAt(transactionDataGrid.SelectedIndex) as Transaction;
-                nameTextBox.Text = currentSelectedTransaction.Name;
+                
+
             };
             transactionDataGrid.PreviewMouseWheel += (s, e) =>
             {
@@ -44,7 +87,20 @@ namespace Stock_Market_App
             };
             saveTransactionButton.Click += (s, e) =>
             {
-                userData.Execute(userID, $"Update Transactions set Name = '{nameTextBox.Text}', Quantity = '{quantityTextBox.Text}', BuyDate = '{buyDatePicker.Text}', BuyRate = '{buyRateTextBox.Text}', SellDate = '{sellDatePicker.Text}', SellRate = '{sellRateTextBox.Text}', ProfitLoss = '{profitLossTextBox.Text}' where sNum = {currentSelectedTransaction.sNum}");
+                string profitLoss = null;
+                if (profitLossTextBox.Text == "Not Applicable")
+                {
+                    profitLoss = "";
+                    currentSelectedTransaction.ProfitLoss = "";
+                }
+                else
+                {
+                    profitLoss = profitLossTextBox.Text;
+                    currentSelectedTransaction.ProfitLoss = profitLossTextBox.Text;
+                    
+                }
+                transactionDataGrid.Items.Refresh();
+                userData.Execute(userID, $"Update Transactions set Name = '{nameTextBox.Text}', Quantity = '{quantityTextBox.Text}', BuyDate = '{buyDatePicker.Text}', BuyRate = '{buyRateTextBox.Text}', SellDate = '{sellDatePicker.Text}', SellRate = '{sellRateTextBox.Text}', ProfitLoss = '{profitLoss}' where sNum = {currentSelectedTransaction.sNum}");
             };
             hideTransactionDetailsButton.Click += (s, e) =>
             {
@@ -53,5 +109,13 @@ namespace Stock_Market_App
             };
             
         }
+        #region PropertyChangeFunctions
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string propertyname = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
+        }
+        #endregion
     }
+    
 }

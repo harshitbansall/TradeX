@@ -75,6 +75,7 @@ namespace Stock_Market_App
             cnn.Execute(query);
         }
     }
+    
     public partial class MainWindow : Window
     {
         public MainWindow()

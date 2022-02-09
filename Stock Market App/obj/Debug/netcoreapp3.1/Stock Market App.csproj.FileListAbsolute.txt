@@ -38,3 +38,4 @@ C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Mar
 C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\Stock Market App.csproj.CopyComplete
 C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\UserWindow.g.cs
 C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\UserWindow.baml
+C:\Users\Tania\Desktop\Harshit\Visual Studio Projects\Stock Market App\Stock Market App\obj\Debug\netcoreapp3.1\GeneratedInternalTypeHelper.g.cs

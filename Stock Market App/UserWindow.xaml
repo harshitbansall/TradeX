@@ -6,70 +6,74 @@
         xmlns:local="clr-namespace:Stock_Market_App"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Height="700" MinWidth="1200" >
+        Height="700" Width="1250" MinWidth="800" >
     <Window.Resources>
-        <Style TargetType="DataGrid">
-            <!-- Make the border and grid lines a little less imposing -->
-            <Setter Property="BorderBrush" Value="#DDDDDD" />
-            <Setter Property="HorizontalGridLinesBrush" Value="#DDDDDD" />
-            <Setter Property="VerticalGridLinesBrush" Value="#DDDDDD" />
+        <ResourceDictionary>
+            <Style TargetType="DataGrid">
+                <!-- Make the border and grid lines a little less imposing -->
+                <Setter Property="BorderBrush" Value="#DDDDDD" />
+                <Setter Property="HorizontalGridLinesBrush" Value="#DDDDDD" />
+                <Setter Property="VerticalGridLinesBrush" Value="#DDDDDD" />
 
-            <Setter Property="RowStyle">
-                <Setter.Value>
-                    <Style TargetType="DataGridRow">
-                        <Style.Triggers>
-                            <!-- Highlight a grid row as the mouse passes over -->
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="LightCyan" />
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="CellStyle">
-                <Setter.Value>
-                    <Style TargetType="DataGridCell">
-                        <Style.Triggers>
-                            <!-- Highlight selected rows -->
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Background" Value="#ff66ccff" />
-                                <Setter Property="BorderBrush" Value="Transparent" />
-                                <Setter Property="Foreground" Value="Black" />
-                            </Trigger>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="Background" Value="#ff66ccff" />
-                                <Setter Property="BorderBrush" Value="Black" />
-                                <Setter Property="BorderThickness" Value="1"/>
-                                <Setter Property="Foreground" Value="Black" />
-                            </Trigger>
-                        </Style.Triggers>
-                        <!-- Add some padding around the contents of a cell -->
-                        <Setter Property="Padding" Value="10,10,10,10" />
-                        <Setter Property="BorderBrush" Value="Transparent"/>
-                        <Setter Property="BorderThickness" Value="1"/>
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="DataGridCell">
-                                    <Border Padding="{TemplateBinding Padding}" 
+                <Setter Property="RowStyle">
+                    <Setter.Value>
+                        <Style TargetType="DataGridRow">
+                            <Style.Triggers>
+                                <!-- Highlight a grid row as the mouse passes over -->
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="LightCyan" />
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="CellStyle">
+                    <Setter.Value>
+                        <Style TargetType="DataGridCell">
+                            <Style.Triggers>
+                                <!-- Highlight selected rows -->
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="#ff66ccff" />
+                                    <Setter Property="BorderBrush" Value="Transparent" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Trigger>
+                                <Trigger Property="IsFocused" Value="True">
+                                    <Setter Property="Background" Value="#ff66ccff" />
+                                    <Setter Property="BorderBrush" Value="Black" />
+                                    <Setter Property="BorderThickness" Value="1"/>
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Trigger>
+                            </Style.Triggers>
+                            <!-- Add some padding around the contents of a cell -->
+                            <Setter Property="Padding" Value="10,10,10,10" />
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridCell">
+                                        <Border Padding="{TemplateBinding Padding}" 
                                             BorderBrush="{TemplateBinding BorderBrush}"
                                             BorderThickness="{TemplateBinding BorderThickness}"
                                             Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center" />
-                                    </Border>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                        <Setter Property="FocusVisualStyle">
-                            <Setter.Value>
-                                <Style TargetType="Control">
-                                    <Setter Property="BorderBrush" Value="Transparent" />
-                                </Style>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Setter.Value>
-            </Setter>
-        </Style>
+                                            <ContentPresenter HorizontalAlignment="Center" />
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="FocusVisualStyle">
+                                <Setter.Value>
+                                    <Style TargetType="Control">
+                                        <Setter Property="BorderBrush" Value="Transparent" />
+                                    </Style>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <local:ProfitLoss x:Key="profitLossConverter"></local:ProfitLoss>
+            <local:Margin x:Key="MarginConverter"></local:Margin>
+        </ResourceDictionary>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -108,6 +112,8 @@
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Label Content="Name" Grid.Column="0" Grid.Row="0" Margin="10,0,0,10"></Label>
                     <TextBox Text="{Binding SelectedItem.Name, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="nameTextBox" Grid.Column="1" Grid.Row="0" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
@@ -115,23 +121,80 @@
                     <Label Content="Quantity" Grid.Column="0" Grid.Row="1" Margin="10,0,0,10"></Label>
                     <TextBox Text="{Binding SelectedItem.Quantity, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="quantityTextBox" Grid.Column="1" Grid.Row="1" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
 
-                    <Label Content="Buy Date" Grid.Column="0" Grid.Row="2" Margin="10,0,0,10"></Label>
-                    <DatePicker Name="buyDatePicker" Text="{Binding SelectedItem.BuyDate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="0,0,0,10" Height="Auto" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" Width="Auto" HorizontalContentAlignment="Center" />
+                    <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" BorderThickness="1" BorderBrush="Black" Margin="10,0,10,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Buy Date" Grid.Column="0" Grid.Row="0" Margin="0,10,0,10" HorizontalAlignment="Center"></Label>
+                            <DatePicker Name="buyDatePicker" Text="{Binding SelectedItem.BuyDate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="0,10,0,10" Height="Auto" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Width="Auto" HorizontalContentAlignment="Center" />
 
-                    <Label Content="Buy Rate" Grid.Column="0" Grid.Row="3" Margin="10,0,0,10"></Label>
-                    <TextBox Text="{Binding SelectedItem.BuyRate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="buyRateTextBox" Grid.Column="1" Grid.Row="3" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                            <Label Content="Buy Rate" Grid.Column="0" Grid.Row="1" Margin="0,0,0,10" HorizontalAlignment="Center"></Label>
+                            <TextBox Text="{Binding SelectedItem.BuyRate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="buyRateTextBox" Grid.Column="1" Grid.Row="1" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
 
-                    <Label Content="Sell Date" Grid.Column="0" Grid.Row="4" Margin="10,0,0,10"></Label>
-                    <DatePicker Name="sellDatePicker" Text="{Binding SelectedItem.SellDate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="0,0,0,10" Height="Auto" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" Width="Auto" HorizontalContentAlignment="Center" />
+                            <Label Content="Margin" Grid.Column="0" Grid.Row="2" Margin="0,0,0,10" HorizontalAlignment="Center"></Label>
+                            <TextBox Name="buyMarginTextBox" Grid.Column="1" IsEnabled="False" Grid.Row="2" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                <TextBox.Text>
+                                    <MultiBinding Converter="{StaticResource MarginConverter}">
+                                        <Binding Path="SelectedItem.BuyRate" ElementName="transactionDataGrid"/>
+                                        <Binding Path="SelectedItem.Quantity" ElementName="transactionDataGrid"/>
+                                    </MultiBinding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" BorderThickness="1" BorderBrush="Black" Margin="10,0,10,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="3*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Sell Date" Grid.Column="0" Grid.Row="0" Margin="10,10,0,10"></Label>
+                            <DatePicker Name="sellDatePicker" Text="{Binding SelectedItem.SellDate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="0,10,0,10" Height="Auto" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Width="Auto" HorizontalContentAlignment="Center" />
+
+                            <Label Content="Sell Rate" Grid.Column="0" Grid.Row="1" Margin="10,0,0,10"></Label>
+                            <TextBox Text="{Binding SelectedItem.SellRate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="sellRateTextBox" Grid.Column="1" Grid.Row="1" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+
+                            <Label Content="Margin" Grid.Column="0" Grid.Row="2" Margin="0,0,0,10" HorizontalAlignment="Center"></Label>
+                            <TextBox Name="sellMarginTextBox" Grid.Column="1" IsEnabled="False" Grid.Row="2" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                <TextBox.Text>
+                                    <MultiBinding Converter="{StaticResource MarginConverter}">
+                                        <Binding Path="SelectedItem.SellRate" ElementName="transactionDataGrid"/>
+                                        <Binding Path="SelectedItem.Quantity" ElementName="transactionDataGrid"/>
+                                    </MultiBinding>
+                                </TextBox.Text>
+                            </TextBox>
+                        </Grid>
+                    </Border>
                     
-                    <Label Content="Sell Rate" Grid.Column="0" Grid.Row="5" Margin="10,0,0,10"></Label>
-                    <TextBox Text="{Binding SelectedItem.SellRate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="sellRateTextBox" Grid.Column="1" Grid.Row="5" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
                     
-                    <Label Content="P/L" Grid.Column="0" Grid.Row="6" Margin="10,0,0,10" HorizontalAlignment="Center"></Label>
-                    <TextBox Text="{Binding SelectedItem.ProfitLoss, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="profitLossTextBox" IsEnabled="False" Grid.Column="1" Grid.Row="6" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                    <Label Content="P/L" Grid.Column="0" Grid.Row="7" Margin="10,0,0,10" HorizontalAlignment="Center"></Label>
+                    <TextBox Name="profitLossTextBox" IsEnabled="False" Grid.Column="1" Grid.Row="7" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        <TextBox.Text>
+                            <MultiBinding Converter="{StaticResource profitLossConverter}">
+                                <Binding Path="SelectedItem.SellRate" ElementName="transactionDataGrid"/>
+                                <Binding Path="SelectedItem.BuyRate" ElementName="transactionDataGrid"/>
+                                <Binding Path="SelectedItem.Quantity" ElementName="transactionDataGrid"/>
+                            </MultiBinding>
+                            
+                        </TextBox.Text>
+                    </TextBox>
                     
-                    <Button x:Name="saveTransactionButton" Content="Save Transaction" Margin="10,20,10,0" FontSize="20" Grid.ColumnSpan="2" Grid.Row="7" Grid.Column="0"/>
-                    <Button x:Name="hideTransactionDetailsButton" Content="Hide Panel" Margin="10,5,10,0" FontSize="20" Grid.ColumnSpan="2" Grid.Row="8" Grid.Column="0"/>
+                    <Button x:Name="saveTransactionButton" Content="Save Transaction" Margin="10,20,10,0" FontSize="20" Grid.ColumnSpan="2" Grid.Row="8" Grid.Column="0"/>
+                    <Button x:Name="hideTransactionDetailsButton" Content="Hide Panel" Margin="10,5,10,0" FontSize="20" Grid.ColumnSpan="2" Grid.Row="9" Grid.Column="0"/>
                 </Grid>
 
             </StackPanel>
