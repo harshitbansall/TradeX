@@ -103,8 +103,7 @@ namespace Stock_Market_App
             loginButton.Click += (s, e) =>
             {
                 string userID = userList.SelectedItem.ToString().Split(" - ")[1];
-                IDbConnection cnn = new SQLiteConnection($"Data Source=Users/{userID}.db;Version=3;");
-                cnn.Execute("CREATE TABLE IF NOT EXISTS Transactions (sNum INTEGER, Name TEXT, Quantity INTEGER, BuyDate TEXT, BuyRate INTEGER, SellDate TEXT, SellRate INTEGER, ProfitLoss INTEGER)");
+                userData.Execute(userID, "CREATE TABLE IF NOT EXISTS 'Transactions' ('sNum' INTEGER, 'Name' TEXT, 'Quantity' TEXT, 'BuyDate' TEXT, 'BuyRate' TEXT, 'SellDate' TEXT, 'SellRate' TEXT, 'ProfitLoss' TEXT)");
                 UserWindow userWindow = new UserWindow(userID);
                 userWindow.Show();
                 this.Close();

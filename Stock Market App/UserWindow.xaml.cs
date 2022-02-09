@@ -66,9 +66,21 @@ namespace Stock_Market_App
         public UserWindow(string userID)
         {
             InitializeComponent();
+            void refreshTable()
+            {
+                try
+                {
+                    transactionDataGrid.Items.Refresh();
+                }
+                catch
+                {
+                    
+                }
+            }
             user currentUser = userDB.getUserData(userID);
             this.Title = $"{currentUser.Name}'s Transactions";
             List<Transaction> totalTransactions = userData.GetAllTransactions(userID);
+            totalTransactions.Reverse();
             transactionDataGrid.ItemsSource = totalTransactions;
 
             Transaction currentSelectedTransaction = null;
@@ -76,17 +88,17 @@ namespace Stock_Market_App
             {
                 transactionDetailsFrame.Visibility = Visibility.Visible;
                 Grid.SetColumnSpan(userDataFrame,1);
-                currentSelectedTransaction = transactionDataGrid.Items.GetItemAt(transactionDataGrid.SelectedIndex) as Transaction;
+                currentSelectedTransaction = transactionDataGrid.SelectedItem as Transaction;
                 
 
             };
             addTransactionButton.Click += (s, e) =>
             {
                 Transaction newTransaction = new Transaction() { sNum = transactionDataGrid.Items.Count + 1, Name = "", Quantity = "", BuyDate = "", BuyRate = "", SellDate = "", SellRate = "", ProfitLoss = "" };
-                totalTransactions.Add(newTransaction);
+                totalTransactions.Insert(0, newTransaction);
                 userData.Execute(userID, $"Insert into Transactions values ({newTransaction.sNum},'','','','','','','')");
-                transactionDataGrid.SelectedIndex = newTransaction.sNum-1;
-                transactionDataGrid.Items.Refresh();
+                transactionDataGrid.SelectedIndex = 0;
+                refreshTable();
             };
             saveTransactionButton.Click += (s, e) =>
             {
@@ -102,11 +114,27 @@ namespace Stock_Market_App
                     currentSelectedTransaction.ProfitLoss = profitLossTextBox.Text;
                     
                 }
-                transactionDataGrid.Items.Refresh();
+                refreshTable();
                 userData.Execute(userID, $"Update Transactions set Name = '{nameTextBox.Text}', Quantity = '{quantityTextBox.Text}', BuyDate = '{buyDatePicker.Text}', BuyRate = '{buyRateTextBox.Text}', SellDate = '{sellDatePicker.Text}', SellRate = '{sellRateTextBox.Text}', ProfitLoss = '{profitLoss}' where sNum = {currentSelectedTransaction.sNum}");
                 transactionDetailsFrame.Visibility = Visibility.Collapsed;
                 Grid.SetColumnSpan(userDataFrame, 2);
                 MessageBox.Show("Saved Transaction");
+            };
+            deleteTransactionButton.Click += (s, e) =>
+            {
+                if (MessageBox.Show($"Delete Transaction {currentSelectedTransaction.sNum}?", "Delete Transaction", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                {
+                    totalTransactions.RemoveAt(transactionDataGrid.Items.Count - currentSelectedTransaction.sNum);
+                    userData.Execute(userID, $"Delete from Transactions where sNum = '{currentSelectedTransaction.sNum}'");
+                    refreshTable();
+                }
+            };
+            logoutButton.Click += (s, e) =>
+            {
+                
+                MainWindow main = new MainWindow();
+                main.Show();
+                this.Close();
             };
             hideTransactionDetailsButton.Click += (s, e) =>
             {
