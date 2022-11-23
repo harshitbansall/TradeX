@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Linq;
 
 
 namespace Stock_Market_App
@@ -72,7 +73,13 @@ namespace Stock_Market_App
             this.Title = $"{currentUser.Name}'s Transactions";
             List<Transaction> totalTransactions = userData.GetAllTransactions(userID);
             totalTransactions.Reverse();
+            //transactionDataGrid.Items.Add();
             transactionDataGrid.ItemsSource = totalTransactions;
+            profileLossLabel.Content = totalTransactions.Where(item => item.ProfitLoss != "").Sum(item => float.Parse(item.ProfitLoss));
+
+            foreach (Transaction i in userData.getStockNames(userID))
+            { nameTextBox.Items.Add(i.Name); }
+
 
             Transaction currentSelectedTransaction = null;
             transactionDataGrid.SelectionChanged += (s, e) =>
@@ -133,6 +140,8 @@ namespace Stock_Market_App
             {
                 userDataScrollViewer.ScrollToVerticalOffset(userDataScrollViewer.VerticalOffset - e.Delta / 3);
             };
+
+
         }
         #region PropertyChangeFunctions
         public event PropertyChangedEventHandler PropertyChanged;
@@ -141,6 +150,9 @@ namespace Stock_Market_App
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
         }
         #endregion
+
+
     }
+
     
 }

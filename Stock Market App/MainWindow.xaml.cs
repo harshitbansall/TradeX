@@ -74,6 +74,11 @@ namespace Stock_Market_App
             IDbConnection cnn = new SQLiteConnection($"Data Source=Users/{userID}.db;Version=3;");
             cnn.Execute(query);
         }
+        public static List<Transaction> getStockNames(string userID)
+        {
+            IDbConnection cnn = new SQLiteConnection($"Data Source=Users/{userID}.db;Version=3;");
+            return cnn.Query<Transaction>("select * from Transactions where Name != '' group by Name").ToList();
+        }
     }
     
     public partial class MainWindow : Window

@@ -109,8 +109,9 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Content="Add Transaction" Grid.Column="0" Name="addTransactionButton"/>
-                <Button Content="Logout" Grid.Column="1" Name="logoutButton"/>
+                <Button Content="Add Transaction" Grid.Column="1" Name="addTransactionButton"/>
+                <Button Content="Logout" Grid.Column="0" Name="logoutButton"/>
+                <Label FontFamily="Panton Caps" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" Name="profileLossLabel"/>
             </Grid>
             
         </Grid>
@@ -138,7 +139,7 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Label Content="Name" Grid.Column="0" Grid.Row="0" Margin="10,0,0,10"></Label>
-                    <TextBox Text="{Binding SelectedItem.Name, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="nameTextBox" Grid.Column="1" Grid.Row="0" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                    <ComboBox Text="{Binding SelectedItem.Name, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" Name="nameTextBox" Grid.Column="1" Grid.Row="0" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></ComboBox>
 
                     <Label Content="Quantity" Grid.Column="0" Grid.Row="1" Margin="10,0,0,10"></Label>
                     <TextBox Text="{Binding SelectedItem.Quantity, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="quantityTextBox" Grid.Column="1" Grid.Row="1" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
