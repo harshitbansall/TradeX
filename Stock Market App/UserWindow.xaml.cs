@@ -6,10 +6,26 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Linq;
-
+using System.Windows.Media;
+using System.Globalization;
+using System.Diagnostics;
 
 namespace Stock_Market_App
 {
+    public class ColorConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            double id = 0;
+            if (value != null && double.TryParse(value.ToString(), out id))
+            {
+                if (id >= 0) { return new SolidColorBrush(Colors.Green); }
+                else if (id <0) { return new SolidColorBrush(Colors.Red); }
+            }
+            return new SolidColorBrush(Colors.Blue);
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture){throw new NotImplementedException();}
+    }
     public class ProfitLoss : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, System.Globalization.CultureInfo culture)
@@ -69,11 +85,11 @@ namespace Stock_Market_App
                     
                 }
             }
-            user currentUser = userDB.getUserData(userID);
+            user currentUser = mainDB.getUserData(userID);
             this.Title = $"{currentUser.Name}'s Transactions";
             List<Transaction> totalTransactions = userData.GetAllTransactions(userID);
             totalTransactions.Reverse();
-            //transactionDataGrid.Items.Add();
+
             transactionDataGrid.ItemsSource = totalTransactions;
             profileLossLabel.Content = totalTransactions.Where(item => item.ProfitLoss != "").Sum(item => float.Parse(item.ProfitLoss));
 
@@ -127,8 +143,8 @@ namespace Stock_Market_App
             };
             logoutButton.Click += (s, e) =>
             {
-                MainWindow main = new MainWindow();
-                main.Show();
+                //MainWindow main = new MainWindow();
+                //main.Show();
                 this.Close();
             };
             hideTransactionDetailsButton.Click += (s, e) =>
@@ -136,10 +152,15 @@ namespace Stock_Market_App
                 transactionDetailsFrame.Visibility = Visibility.Collapsed;
                 Grid.SetColumnSpan(userDataFrame, 2);
             };
-            transactionDataGrid.PreviewMouseWheel += (s, e) =>
+            preferencesButton.Click += (s, e) =>
             {
-                userDataScrollViewer.ScrollToVerticalOffset(userDataScrollViewer.VerticalOffset - e.Delta / 3);
+                Preferences pf = new Preferences() { DataContext = new MainWindow()};
+                pf.Show();
             };
+            //transactionDataGrid.PreviewMouseWheel += (s, e) =>
+            //{
+            //    userDataScrollViewer.ScrollToVerticalOffset(userDataScrollViewer.VerticalOffset - e.Delta / 3);
+            //};
 
 
         }
@@ -150,6 +171,7 @@ namespace Stock_Market_App
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
         }
         #endregion
+        
 
 
     }

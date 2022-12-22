@@ -5,25 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Stock_Market_App"
         mc:Ignorable="d"
+        Background="{Binding backgroundColor}"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="450" Width="800">
+        Title="TradeX" Height="450" Width="800">
     <Grid>
         <StackPanel>
-        <Label Content="TRADEX" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Panton Caps" FontSize="30"/>
-            <Grid Margin="0,15,0,0">
+        <Label Content="TradeX" Foreground="{Binding themeColor}" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Panton Caps" FontSize="30"/>
+            <Grid Margin="80,15,80,0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
+                    <RowDefinition/>
                 </Grid.RowDefinitions>
-                <ComboBox Name="userList" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="0" Grid.Column="0" FontFamily="Panton Caps" FontSize="15px" Margin="30,0,10,0" MinWidth="100"/>
-                <Button Content="Login" Grid.Column="1" Grid.Row="0" Width="100" x:Name="loginButton"></Button>
-                <Button Content="Add User" Grid.Column="2" Grid.Row="0" Width="100" x:Name="addUserButton"></Button>
+                <ComboBox Name="userList" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Row="0" Grid.Column="0" FontFamily="Panton Caps" FontSize="15px" Margin="30,0,10,0" HorizontalAlignment="Stretch"/>
+                <Button Content="Login" Grid.Column="1" Grid.Row="0" Width="100" x:Name="loginButton" HorizontalAlignment="Center"></Button>
+
+                <Button Content="Add User" Margin="0,15,0,15" Grid.Column="0" Grid.Row="1" Width="100" x:Name="addUserButton" HorizontalAlignment="Center" VerticalAlignment="Center"></Button>
+                <Button Content="Preferences" Grid.Column="1" Grid.Row="1" Width="100" x:Name="preferencesButton" HorizontalAlignment="Center" VerticalAlignment="Center"></Button>
             </Grid>
         </StackPanel>
     </Grid>

@@ -1,0 +1,138 @@
+﻿<Window x:Class="Stock_Market_App.Preferences"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Stock_Market_App"
+        mc:Ignorable="d"
+        Background="{Binding backgroundColor}"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        WindowStartupLocation="CenterScreen"
+        Title="Preferences" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="TabItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border Name="TabPanel" CornerRadius="5">
+                            <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Header" Margin="10,2"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="TabPanel" Property="Background" Value="{Binding themeColor}" />
+                                <Setter TargetName="TabPanel" Property="TextBlock.Foreground" Value="{Binding backgroundColor}"/>
+                                <Setter Property="FontWeight" Value="Bold" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="False">
+                                <Setter TargetName="TabPanel" Property="Background" Value="{Binding backgroundColor}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Label Content="Preferences" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" FontFamily="Panton Caps" Foreground="{Binding themeColor}" Grid.ColumnSpan="4" Margin="0" Height="Auto" Width="Auto"/>
+        <TabControl Canvas.Top="227" Margin="20,48,20,20" Background="{Binding backgroundColor}" HorizontalAlignment="Stretch">
+            <TabControl.Template>
+                <ControlTemplate TargetType="{x:Type TabControl}">
+                    <DockPanel LastChildFill="True">
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Center" IsItemsHost="true"/>
+                        <ContentPresenter ContentSource="SelectedContent"/>
+                    </DockPanel>
+                </ControlTemplate>
+            </TabControl.Template>
+            <!--<TabItem Header="Tabs" FontFamily="Panton Caps" Background="{Binding backgroundColor}" Foreground="{Binding baseColor}" FontSize="22">
+                <Grid Background="{Binding backgroundColor}" Margin="0,10,0,0">
+                    <ScrollViewer>
+                        <Grid VerticalAlignment="Stretch" Margin="0,30,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <CheckBox x:Name="homeFrameToggle" Content="Home" FontSize="25" IsChecked="{Binding homeVisibility}" FontFamily="Panton Caps" Grid.Column="0" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <CheckBox x:Name="videosFrameToggle" Content="Videos" FontSize="25" IsChecked="{Binding videosVisibility}" FontFamily="Panton Caps" Grid.Column="1" Margin="0,10,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <CheckBox x:Name="tiktoksFrameToggle" Content="Tiktoks" FontSize="25" IsChecked="{Binding tiktoksVisibility}" FontFamily="Panton Caps" Grid.Column="0" Margin="0,55,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <CheckBox x:Name="nudesFrameToggle" Content="Nudes" FontSize="25" IsChecked="{Binding nudesVisibility}" FontFamily="Panton Caps" Grid.Column="1" Margin="0,55,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+                            <CheckBox x:Name="asmrFrameToggle" Content="ASMR" FontSize="25" IsChecked="{Binding asmrVisibility}" FontFamily="Panton Caps" Grid.Column="0" Margin="0,100,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <CheckBox x:Name="animeFrameToggle" Content="Anime" FontSize="25" IsChecked="{Binding animeVisibility}" FontFamily="Panton Caps" Grid.Column="1" Margin="0,100,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <CheckBox x:Name="pornstarsFrameToggle" Content="Pornstars" FontSize="25" IsChecked="{Binding pornstarsVisibility}" FontFamily="Panton Caps" Grid.Column="0" Margin="0,145,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <CheckBox x:Name="searchFrameToggle" Content="Search" FontSize="25" IsChecked="{Binding searchVisibility}" FontFamily="Panton Caps" Grid.Column="1" Margin="0,145,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        </Grid>
+
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>-->
+            <!--<TabItem Header="Functions" FontFamily="Panton Caps" Background="{Binding backgroundColor}" Foreground="{Binding baseColor}" FontSize="22">
+                <Grid Background="{Binding backgroundColor}" Margin="0,10,0,0">
+                    <ScrollViewer>
+                        <Grid VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1*"/>
+
+                            </Grid.ColumnDefinitions>
+
+
+                            <Label Content="Row Limit" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Montserrat Medium" Foreground="{Binding baseColor}" Height="32" Width="110"/>
+                            <TextBox x:Name="rowLimitInputBox" Text="{Binding rowLimit, UpdateSourceTrigger=PropertyChanged}" FontFamily="Montserrat" FontSize="16" TextAlignment="Center" Background="{Binding backgroundColor}" Foreground="{Binding themeColor}" BorderThickness="1" BorderBrush="{Binding baseColor}" CaretBrush="Transparent" KeyDown="rowLimitInputBoxEnterEvent" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"/>
+                            <Label Content="Page Data Limit" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Montserrat Medium" Foreground="{Binding baseColor}" Grid.Column="2" Height="24" Width="171"/>
+                            <TextBox x:Name="dataLimitInputBox" Margin="0,10,0,0" FontFamily="Montserrat" FontSize="16" TextAlignment="Center" Background="{Binding backgroundColor}" Foreground="{Binding themeColor}" BorderThickness="1" BorderBrush="{Binding baseColor}" CaretBrush="Transparent" KeyDown="dataLimitInputBoxEnterEvent" Grid.Column="3" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <Label Content="Data Mode" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="20" FontFamily="Montserrat Medium" Foreground="{Binding baseColor}" Height="32" Width="120" Margin="0,55,0,0"/>
+                            <Button x:Name="dataModeToggleButton" Content="DataMode" Margin="0,55,0,0" VerticalAlignment="Top" Background="{Binding backgroundColor}" FontSize="20" FontFamily="Montserrat" Foreground="{Binding themeColor}" BorderThickness="0" BorderBrush="Black" Focusable="False" Width="134" Height="32" Grid.Column="1" HorizontalAlignment="Center"/>
+
+
+                            <Label Content="Video Preview" HorizontalAlignment="Center" Margin="0,55,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Montserrat Medium" Foreground="{Binding baseColor}" Height="24" Grid.Column="2"/>
+                            <Button x:Name="videoPreviewToggleButton" Content="Preview" Margin="0,55,0,0" VerticalAlignment="Top" Background="{Binding backgroundColor}" FontSize="20" FontFamily="Montserrat" Foreground="{Binding themeColor}" BorderThickness="0" BorderBrush="Black" Focusable="False" Width="109" Height="32" Grid.Column="3" HorizontalAlignment="Center"/>
+                            <Label Content="Image Degrade" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Montserrat Medium" Foreground="{Binding baseColor}" Height="32" Width="161"/>
+                            <TextBox x:Name="thumbnailDegradeWidthInputBox" Margin="0,100,0,0" FontFamily="Montserrat" FontSize="16" TextAlignment="Center" Background="{Binding backgroundColor}" Foreground="{Binding themeColor}" BorderThickness="1" BorderBrush="{Binding baseColor}" CaretBrush="Transparent" KeyDown="thumbnailDegradeWidthInputBoxEnterEvent" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+
+
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+
+            </TabItem>-->
+            <TabItem Header="Appearence" FontFamily="Panton Caps" Background="{Binding backgroundColor}" Foreground="{Binding baseColor}" FontSize="22">
+                <Grid Background="{Binding backgroundColor}" Margin="0,10,0,0">
+                    <ScrollViewer>
+                        <Grid VerticalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1*"/>
+
+                            </Grid.ColumnDefinitions>
+
+                            <!--<Label Content="Favourite Tag Colour" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Montserrat Medium" Foreground="{Binding baseColor}" Height="31" Grid.Column="2" Width="215"/>
+                            <TextBox x:Name="favTagColorInputBox" Margin="0,10,0,0" FontFamily="Montserrat" FontSize="16" TextAlignment="Center" Background="{Binding backgroundColor}" Foreground="{Binding themeColor}" BorderThickness="1" BorderBrush="{Binding baseColor}" CaretBrush="Transparent" KeyDown="favTagColorInputBoxEnterEvent" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Top" Width="90"/>-->
+
+                            <Label Content="Theme Color" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Montserrat Medium" Foreground="{Binding baseColor}" Height="32" Width="132"/>
+                            <TextBox x:Name="themeColorInputBox" Text="{Binding themeColor, UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0" FontFamily="Montserrat" FontSize="16" TextAlignment="Center" Background="{Binding backgroundColor}" Foreground="{Binding themeColor}" BorderThickness="1" BorderBrush="{Binding baseColor}" CaretBrush="Transparent" KeyDown="themeColorInputBoxEnterEvent" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="114"/>
+
+                            <Label Content="Base Color" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,55,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Montserrat Medium" Foreground="{Binding baseColor}" Height="32" Width="115" Grid.Column="2"/>
+                            <TextBox x:Name="baseColorInputBox" Text="{Binding baseColor, UpdateSourceTrigger=PropertyChanged}" Margin="0,55,0,0" FontFamily="Montserrat" FontSize="16" TextAlignment="Center" Background="{Binding backgroundColor}" Foreground="{Binding themeColor}" BorderThickness="1" BorderBrush="{Binding baseColor}" CaretBrush="Transparent" KeyDown="baseColorInputBoxEnterEvent" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Top" Width="114"/>
+
+                            <Label Content="Background Color" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,55,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Montserrat Medium" Foreground="{Binding baseColor}" Height="32" Width="194"/>
+                            <TextBox x:Name="backgroundColorInputBox" Text="{Binding backgroundColor, UpdateSourceTrigger=PropertyChanged}" Margin="0,55,0,0" FontFamily="Montserrat" FontSize="16" TextAlignment="Center" Background="{Binding backgroundColor}" Foreground="{Binding themeColor}" BorderThickness="1" BorderBrush="{Binding baseColor}" CaretBrush="Transparent" KeyDown="backgroundColorInputBoxEnterEvent" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Width="114"/>
+
+                            <!--<Slider VerticalAlignment="Top" HorizontalAlignment="Center" Width="120" Grid.Column="1" Value="{Binding buttonFontSize, UpdateSourceTrigger=PropertyChanged}" Maximum="30" Minimum="0" TickFrequency="3" TickPlacement="BottomRight" IsSnapToTickEnabled="True" Margin="0,100,0,0"/>
+
+                            <Label Content="Button Font Size" VerticalContentAlignment="Center" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Montserrat Medium" Foreground="{Binding baseColor}" Height="32" Grid.Column="0"/>-->
+
+
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

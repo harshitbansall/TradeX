@@ -1,45 +1,45 @@
 ﻿using Dapper;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 
 namespace Stock_Market_App
 {
-    public class userDB
+    #region DataClasses
+    public class mainDB
     {
+        public static List<string> get(string query)
+        {
+            IDbConnection cnn = new SQLiteConnection("Data Source=mainDB.db;Version=3;");
+            return cnn.Query<string>(query).ToList();
+        }
         public static List<user> getUsers()
         {
-            IDbConnection cnn = new SQLiteConnection("Data Source=userDB.db;Version=3;");
+            IDbConnection cnn = new SQLiteConnection("Data Source=mainDB.db;Version=3;");
             return cnn.Query<user>("select * from Users").ToList();
         }
         public static user getUserData(string query)
         {
-            IDbConnection cnn = new SQLiteConnection("Data Source=userDB.db;Version=3;");
+            IDbConnection cnn = new SQLiteConnection("Data Source=mainDB.db;Version=3;");
             return cnn.Query<user>($"select * from Users where Name like '%{query}%' or UserID like '%{query}%'").ToList()[0];
         }
         public static int getUserCount()
         {
-            IDbConnection cnn = new SQLiteConnection("Data Source=userDB.db;Version=3;");
+            IDbConnection cnn = new SQLiteConnection("Data Source=mainDB.db;Version=3;");
             return cnn.Query<int>("SELECT max(rowid) from Users").ToList()[0];
         }
         public static void Execute(string query)
         {
-            IDbConnection cnn = new SQLiteConnection("Data Source=userDB.db;Version=3;");
+            IDbConnection cnn = new SQLiteConnection("Data Source=mainDB.db;Version=3;");
             cnn.Execute(query);
         }
     }
@@ -80,20 +80,39 @@ namespace Stock_Market_App
             return cnn.Query<Transaction>("select * from Transactions where Name != '' group by Name").ToList();
         }
     }
-    
-    public partial class MainWindow : Window
+    #endregion
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        #region Variables
+        private string _themeColor;
+        private string _baseColor;
+        private string _backgroundColor;
+        //private int _buttonFontSize;
+        public string themeColor { get { return _themeColor; } set { _themeColor = value; OnPropertyChanged(); } }
+        public string baseColor { get { return _baseColor; } set { _baseColor = value; OnPropertyChanged(); } }
+        public string backgroundColor { get { return _backgroundColor; } set { _backgroundColor = value; OnPropertyChanged(); } }
+        //public int buttonFontSize { get { return _buttonFontSize; } set { _buttonFontSize = value; OnPropertyChanged(); } }
+        #endregion
         public MainWindow()
         {
             InitializeComponent();
-            
+            this.DataContext = this;
+
+            #region InitializeVariables
+
+            themeColor = mainDB.get("select value from Variables where var = 'themeColor'")[0];
+            backgroundColor = mainDB.get("select value from Variables where var = 'backgroundColor'")[0];
+            baseColor = mainDB.get("select value from Variables where var = 'baseColor'")[0];
+
+            #endregion
+
             addUserButton.Click += (s, e) =>
             {
                 AddUser newUser = new AddUser();
                 newUser.Show();
                 newUser.saveUserDetails.Click += (s, e) =>
                 {
-                    userDB.Execute($"insert into Users values ({userDB.getUserCount() + 1},'{newUser.newUserNameTextBox.Text}','{newUser.newUserBrokerTextBox.Text}','{newUser.newUserUserIDTextBox.Text}','{newUser.newUserPasswordTextBox.Text}')");
+                    mainDB.Execute($"insert into Users values ({mainDB.getUserCount() + 1},'{newUser.newUserNameTextBox.Text}','{newUser.newUserBrokerTextBox.Text}','{newUser.newUserUserIDTextBox.Text}','{newUser.newUserPasswordTextBox.Text}')");
                     File.Create($"Users/{newUser.newUserUserIDTextBox.Text}.db");
                     userList.Items.Add($"{newUser.newUserNameTextBox.Text} - {newUser.newUserUserIDTextBox.Text}");
                     newUser.Close();
@@ -101,19 +120,32 @@ namespace Stock_Market_App
                 };
             };
 
-            foreach (user i in userDB.getUsers())
+            foreach (user i in mainDB.getUsers())
             {
                 userList.Items.Add($"{i.Name} - {i.UserID}");
             }
+
             loginButton.Click += (s, e) =>
             {
                 string userID = userList.SelectedItem.ToString().Split(" - ")[1];
                 userData.Execute(userID, "CREATE TABLE IF NOT EXISTS 'Transactions' ('sNum' INTEGER, 'Name' TEXT, 'Quantity' TEXT, 'BuyDate' TEXT, 'BuyRate' TEXT, 'SellDate' TEXT, 'SellRate' TEXT, 'ProfitLoss' TEXT)");
-                UserWindow userWindow = new UserWindow(userID);
-                userWindow.Show();
-                this.Close();
+                UserWindow userWindow = new UserWindow(userID) {DataContext = this };
+                userWindow.ShowDialog();
+            };
+
+            preferencesButton.Click += (s, e) =>
+            {
+                Preferences pf = new Preferences { DataContext = this };
+                pf.ShowDialog();
             };
 
         }
+        #region PropertyChangeFunctions
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string propertyname = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyname));
+        }
+        #endregion
     }
 }
