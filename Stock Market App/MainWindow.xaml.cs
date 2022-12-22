@@ -87,10 +87,12 @@ namespace Stock_Market_App
         private string _themeColor;
         private string _baseColor;
         private string _backgroundColor;
+        private string _fontFamily;
         //private int _buttonFontSize;
         public string themeColor { get { return _themeColor; } set { _themeColor = value; OnPropertyChanged(); } }
         public string baseColor { get { return _baseColor; } set { _baseColor = value; OnPropertyChanged(); } }
         public string backgroundColor { get { return _backgroundColor; } set { _backgroundColor = value; OnPropertyChanged(); } }
+        public string fontFamily { get { return _fontFamily; } set { _fontFamily = value; OnPropertyChanged(); } }
         //public int buttonFontSize { get { return _buttonFontSize; } set { _buttonFontSize = value; OnPropertyChanged(); } }
         #endregion
         public MainWindow()
@@ -103,6 +105,7 @@ namespace Stock_Market_App
             themeColor = mainDB.get("select value from Variables where var = 'themeColor'")[0];
             backgroundColor = mainDB.get("select value from Variables where var = 'backgroundColor'")[0];
             baseColor = mainDB.get("select value from Variables where var = 'baseColor'")[0];
+            fontFamily = mainDB.get("select value from Variables where var = 'fontFamily'")[0];
 
             #endregion
 
@@ -129,7 +132,7 @@ namespace Stock_Market_App
             {
                 string userID = userList.SelectedItem.ToString().Split(" - ")[1];
                 userData.Execute(userID, "CREATE TABLE IF NOT EXISTS 'Transactions' ('sNum' INTEGER, 'Name' TEXT, 'Quantity' TEXT, 'BuyDate' TEXT, 'BuyRate' TEXT, 'SellDate' TEXT, 'SellRate' TEXT, 'ProfitLoss' TEXT)");
-                UserWindow userWindow = new UserWindow(userID) {DataContext = this };
+                UserWindow userWindow = new UserWindow(userID) { DataContext = this };
                 userWindow.ShowDialog();
             };
 

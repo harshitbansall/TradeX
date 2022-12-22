@@ -124,7 +124,7 @@ namespace Stock_Market_App
                 {
                     profitLoss = profitLossTextBox.Text;
                     currentSelectedTransaction.ProfitLoss = profitLossTextBox.Text;
-                    
+
                 }
                 refreshTable();
                 userData.Execute(userID, $"Update Transactions set Name = '{nameTextBox.Text}', Quantity = '{quantityTextBox.Text}', BuyDate = '{buyDatePicker.Text}', BuyRate = '{buyRateTextBox.Text}', SellDate = '{sellDatePicker.Text}', SellRate = '{sellRateTextBox.Text}', ProfitLoss = '{profitLoss}' where sNum = {currentSelectedTransaction.sNum}");
@@ -141,12 +141,7 @@ namespace Stock_Market_App
                     refreshTable();
                 }
             };
-            logoutButton.Click += (s, e) =>
-            {
-                //MainWindow main = new MainWindow();
-                //main.Show();
-                this.Close();
-            };
+
             hideTransactionDetailsButton.Click += (s, e) =>
             {
                 transactionDetailsFrame.Visibility = Visibility.Collapsed;
@@ -154,8 +149,14 @@ namespace Stock_Market_App
             };
             preferencesButton.Click += (s, e) =>
             {
-                Preferences pf = new Preferences() { DataContext = new MainWindow()};
+                Preferences pf = new Preferences() { DataContext = new MainWindow() };
                 pf.Show();
+            };
+            logoutButton.Click += (s, e) =>
+            {
+                //MainWindow main = new MainWindow();
+                //main.Show();
+                this.Close();
             };
             //transactionDataGrid.PreviewMouseWheel += (s, e) =>
             //{

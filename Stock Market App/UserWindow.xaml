@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Background="{Binding backgroundColor}"
         WindowStartupLocation="CenterScreen"
-        Height="700" Width="1250" MinWidth="800" >
+        Height="720" Width="1250" MinWidth="800" >
     <Window.Resources>
         <ResourceDictionary>
             <!--<Style TargetType="DataGrid">
@@ -86,11 +86,11 @@
             <local:ProfitLoss x:Key="profitLossConverter"></local:ProfitLoss>
             <local:Margin x:Key="MarginConverter"></local:Margin>
         </ResourceDictionary>
-        
+
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="9*"></ColumnDefinition>
+            <ColumnDefinition Width="11*"></ColumnDefinition>
             <ColumnDefinition Width="3*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
@@ -101,9 +101,11 @@
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
             <!--<ScrollViewer x:Name="userDataScrollViewer" VerticalScrollBarVisibility="Auto" HorizontalAlignment="Stretch" Background="{Binding backgroundColor}">-->
-            <DataGrid x:Name="transactionDataGrid" Background="{Binding backgroundColor}" IsReadOnly="True" Grid.Row="0" CanUserAddRows="True" CanUserDeleteRows="False" CanUserReorderColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AutoGenerateColumns="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+            <DataGrid x:Name="transactionDataGrid" Foreground="{Binding baseColor}" Background="{Binding backgroundColor}" Margin="20,0,10,0" RowHeaderWidth="0" IsReadOnly="True" Grid.Row="0" CanUserAddRows="True" CanUserDeleteRows="False" CanUserReorderColumns="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" AutoGenerateColumns="False" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="S.No" Width="2*" Binding="{Binding sNum}" FontFamily="Panton Caps" FontSize="18"/>
+                    <DataGridTextColumn Header="S.No" Width="2*" Binding="{Binding sNum}" FontFamily="Panton Caps" FontSize="18">
+                    </DataGridTextColumn>
                     <DataGridTextColumn Header="Name" Width="6*" Binding="{Binding Name}" FontFamily="Panton Caps" FontSize="18"/>
                     <DataGridTextColumn CanUserSort="False" Header="Quantity" Binding="{Binding Quantity}" Width="3*" FontFamily="Panton Caps" FontSize="18"/>
                     <DataGridTextColumn CanUserSort="False" Header="Buy Date" Binding="{Binding BuyDate}"  Width="4*" FontFamily="Panton Caps" FontSize="18"/>
@@ -119,6 +121,7 @@
                     </DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
+            
             <!--</ScrollViewer>-->
 
             <Grid Grid.Row="1">
@@ -128,121 +131,127 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                
+
                 <Button Content="Logout" Grid.Column="0" Name="logoutButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{Binding backgroundColor}"/>
                 <Button Content="Add Transaction" Grid.Column="1" Name="addTransactionButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{Binding backgroundColor}"/>
                 <Button Content="Preferences" Grid.Column="2" Name="preferencesButton" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="{Binding backgroundColor}"/>
                 <Label FontFamily="Panton Caps" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Grid.Column="3" Name="profileLossLabel"/>
+                
             </Grid>
 
         </Grid>
 
 
         <Border x:Name="transactionDetailsFrame" BorderBrush="White" BorderThickness="1" Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Margin="5,0,5,5" Visibility="Collapsed">
-            <StackPanel>
-                <Label HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" FontSize="30" Content="Transaction Data" Margin="0,30,0,30"></Label>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*"></ColumnDefinition>
-                        <ColumnDefinition Width="3*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Label Content="Name" Grid.Column="0" Grid.Row="0" Margin="10,0,0,10"></Label>
-                    <ComboBox Text="{Binding SelectedItem.Name, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" Name="nameTextBox" Grid.Column="1" Grid.Row="0" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"></ComboBox>
+            <ScrollViewer>
+                <StackPanel>
+                    <!--<Label HorizontalContentAlignment="Center" HorizontalAlignment="Stretch" FontSize="30" Content="Transaction Data" Margin="0,10,0,20"></Label>-->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <!--<Label Content="Name" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></Label>-->
+                        <ComboBox Text="{Binding SelectedItem.Name, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" IsEditable="True" ui:ControlHelper.Header="Name" Name="nameTextBox" Grid.Column="0" Grid.Row="0" Margin="10,10,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch"></ComboBox>
 
-                    <Label Content="Quantity" Grid.Column="0" Grid.Row="1" Margin="10,0,0,10"></Label>
-                    <TextBox Text="{Binding SelectedItem.Quantity, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="quantityTextBox" Grid.Column="1" Grid.Row="1" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                        <!--<Label Content="Quantity" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></Label>-->
+                        <!--<TextBox Text="{Binding SelectedItem.Quantity, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="quantityTextBox" Grid.Column="1" Grid.Row="1" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>-->
+                        <ui:NumberBox Text="{Binding SelectedItem.Quantity, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" ui:ControlHelper.Header="Quantity" Name="quantityTextBox" HorizontalContentAlignment="Center" SpinButtonPlacementMode="Inline" SmallChange="1" LargeChange="10" Grid.Column="0" Grid.Row="1" Margin="10,0,10,10" VerticalContentAlignment="Center"></ui:NumberBox>
 
-                    <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" BorderThickness="1" BorderBrush="{Binding themeColor}" Margin="10,0,10,10">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"></ColumnDefinition>
-                                <ColumnDefinition Width="3*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Label Content="Buy Date" Grid.Column="0" Grid.Row="0" Margin="0,10,0,10" HorizontalAlignment="Center"></Label>
-                            <DatePicker Name="buyDatePicker" Text="{Binding SelectedItem.BuyDate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="0,10,0,10" Height="Auto" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Width="Auto" HorizontalContentAlignment="Center" />
+                        <Border Grid.Column="0" Grid.Row="2" BorderThickness="1" BorderBrush="{Binding themeColor}" Margin="10,0,10,10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <!--<Label Content="Buy Date" Grid.Column="0" Grid.Row="0" Margin="0,12,0,0" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></Label>-->
+                                <DatePicker Name="buyDatePicker" ui:ControlHelper.Header="Buy Date" Text="{Binding SelectedItem.BuyDate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="10,10,10,10" Height="Auto" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Width="Auto" HorizontalContentAlignment="Center" />
 
-                            <Label Content="Buy Rate" Grid.Column="0" Grid.Row="1" Margin="0,0,0,10" HorizontalAlignment="Center"></Label>
-                            <TextBox Text="{Binding SelectedItem.BuyRate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="buyRateTextBox" Grid.Column="1" Grid.Row="1" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                                <!--<Label Content="Buy Rate" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></Label>-->
+                                <TextBox ui:ControlHelper.Header="Buy Rate" Text="{Binding SelectedItem.BuyRate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="buyRateTextBox" Grid.Column="0" Grid.Row="1" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
 
-                            <Label Content="Margin" Grid.Column="0" Grid.Row="2" Margin="0,0,0,10" HorizontalAlignment="Center"></Label>
-                            <TextBox Name="buyMarginTextBox" Grid.Column="1" IsEnabled="False" Grid.Row="2" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                                <TextBox.Text>
-                                    <MultiBinding Converter="{StaticResource MarginConverter}">
-                                        <Binding Path="SelectedItem.BuyRate" ElementName="transactionDataGrid"/>
-                                        <Binding Path="SelectedItem.Quantity" ElementName="transactionDataGrid"/>
-                                    </MultiBinding>
-                                </TextBox.Text>
-                            </TextBox>
+                                <!--<Label Content="Margin" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"></Label>-->
+                                <TextBox ui:ControlHelper.Header="Margin" Name="buyMarginTextBox" Grid.Column="0" IsEnabled="False" Grid.Row="2" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                    <TextBox.Text>
+                                        <MultiBinding Converter="{StaticResource MarginConverter}">
+                                            <Binding Path="SelectedItem.BuyRate" ElementName="transactionDataGrid"/>
+                                            <Binding Path="SelectedItem.Quantity" ElementName="transactionDataGrid"/>
+                                        </MultiBinding>
+                                    </TextBox.Text>
+                                </TextBox>
 
-                        </Grid>
-                    </Border>
+                            </Grid>
+                        </Border>
 
-                    <Border Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" BorderThickness="1" BorderBrush="{Binding themeColor}" Margin="10,0,10,10">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"></ColumnDefinition>
-                                <ColumnDefinition Width="3*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                                <RowDefinition/>
-                            </Grid.RowDefinitions>
-                            <Label Content="Sell Date" Grid.Column="0" Grid.Row="0" Margin="10,10,0,10"></Label>
-                            <DatePicker Name="sellDatePicker" Text="{Binding SelectedItem.SellDate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="0,10,0,10" Height="Auto" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Width="Auto" HorizontalContentAlignment="Center" />
+                        <Border Grid.Column="0" Grid.Row="3" BorderThickness="1" BorderBrush="{Binding themeColor}" Margin="10,0,10,10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <!--<Label Content="Sell Date" Grid.Column="0" Grid.Row="0" Margin="10,10,0,10"></Label>-->
+                                <DatePicker Name="sellDatePicker" ui:ControlHelper.Header="Sell Date" Text="{Binding SelectedItem.SellDate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="10,10,10,10" Height="Auto" HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Width="Auto" HorizontalContentAlignment="Center" />
 
-                            <Label Content="Sell Rate" Grid.Column="0" Grid.Row="1" Margin="10,0,0,10"></Label>
-                            <TextBox Text="{Binding SelectedItem.SellRate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="sellRateTextBox" Grid.Column="1" Grid.Row="1" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                                <!--<Label Content="Sell Rate" Grid.Column="0" Grid.Row="1" Margin="10,0,0,10"></Label>-->
+                                <TextBox ui:ControlHelper.Header="Sell Rate" Text="{Binding SelectedItem.SellRate, ElementName=transactionDataGrid, UpdateSourceTrigger=PropertyChanged}" Name="sellRateTextBox" Grid.Column="0" Grid.Row="1" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></TextBox>
 
-                            <Label Content="Margin" Grid.Column="0" Grid.Row="2" Margin="0,0,0,10" HorizontalAlignment="Center"></Label>
-                            <TextBox Name="sellMarginTextBox" Grid.Column="1" IsEnabled="False" Grid.Row="2" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                                <TextBox.Text>
-                                    <MultiBinding Converter="{StaticResource MarginConverter}">
-                                        <Binding Path="SelectedItem.SellRate" ElementName="transactionDataGrid"/>
-                                        <Binding Path="SelectedItem.Quantity" ElementName="transactionDataGrid"/>
-                                    </MultiBinding>
-                                </TextBox.Text>
-                            </TextBox>
-                        </Grid>
-                    </Border>
+                                <!--<Label Content="Margin" Grid.Column="0" Grid.Row="2" Margin="0,0,0,10" HorizontalAlignment="Center"></Label>-->
+                                <TextBox ui:ControlHelper.Header="Margin" Name="sellMarginTextBox" Grid.Column="1" IsEnabled="False" Grid.Row="2" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Stretch">
+                                    <TextBox.Text>
+                                        <MultiBinding Converter="{StaticResource MarginConverter}">
+                                            <Binding Path="SelectedItem.SellRate" ElementName="transactionDataGrid"/>
+                                            <Binding Path="SelectedItem.Quantity" ElementName="transactionDataGrid"/>
+                                        </MultiBinding>
+                                    </TextBox.Text>
+                                </TextBox>
+                            </Grid>
+                        </Border>
 
 
-                    <Label Content="P/L" Grid.Column="0" Grid.Row="7" Margin="10,0,0,10" HorizontalAlignment="Center"></Label>
-                    <TextBox Name="profitLossTextBox" IsEnabled="False" Grid.Column="1" Grid.Row="7" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        <TextBox.Text>
-                            <MultiBinding Converter="{StaticResource profitLossConverter}">
-                                <Binding Path="SelectedItem.SellRate" ElementName="transactionDataGrid"/>
-                                <Binding Path="SelectedItem.BuyRate" ElementName="transactionDataGrid"/>
-                                <Binding Path="SelectedItem.Quantity" ElementName="transactionDataGrid"/>
-                            </MultiBinding>
+                        <!--<Label Content="P/L" Grid.Column="0" Grid.Row="7" Margin="10,0,0,10" HorizontalAlignment="Center"></Label>-->
+                        <TextBox ui:ControlHelper.Header="Profit / Loss" Name="profitLossTextBox" IsEnabled="False" Grid.Column="0" Grid.Row="7" Margin="10,0,10,10" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            <TextBox.Text>
+                                <MultiBinding Converter="{StaticResource profitLossConverter}">
+                                    <Binding Path="SelectedItem.SellRate" ElementName="transactionDataGrid"/>
+                                    <Binding Path="SelectedItem.BuyRate" ElementName="transactionDataGrid"/>
+                                    <Binding Path="SelectedItem.Quantity" ElementName="transactionDataGrid"/>
+                                </MultiBinding>
 
-                        </TextBox.Text>
-                    </TextBox>
+                            </TextBox.Text>
+                        </TextBox>
+                        <ui:CommandBar Grid.Row="8" Margin="10,0,10,10" HorizontalAlignment="Center">
+                            <ui:AppBarButton Background="{Binding backgroundColor}" Foreground="{Binding baseColor}" x:Name="saveTransactionButton" Icon="Save" Label="Save" HorizontalAlignment="Stretch" />
+                            <ui:AppBarButton Background="{Binding backgroundColor}" Foreground="{Binding baseColor}" x:Name="deleteTransactionButton" Icon="Delete" Label="Delete" HorizontalAlignment="Stretch" />
+                            <ui:AppBarButton Background="{Binding backgroundColor}" Foreground="{Binding baseColor}" x:Name="hideTransactionDetailsButton" Label="Hide" HorizontalAlignment="Stretch" />
+                            
+                        </ui:CommandBar>
+                        <!--<Button x:Name="saveTransactionButton" Content="Save Transaction" Margin="10,0,10,0" FontSize="17" Grid.ColumnSpan="2" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Stretch"/>
+                        <Button x:Name="deleteTransactionButton" Content="Delete Transaction" Margin="10,5,10,0" FontSize="17" Grid.ColumnSpan="2" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Stretch"/>
+                        <Button x:Name="hideTransactionDetailsButton" Content="Hide Panel" Margin="10,5,10,0" FontSize="17" Grid.ColumnSpan="2" Grid.Row="10" Grid.Column="0" HorizontalAlignment="Stretch"/>-->
+                    </Grid>
 
-                    <Button x:Name="saveTransactionButton" Content="Save Transaction" Margin="10,20,10,0" FontSize="17" Grid.ColumnSpan="2" Grid.Row="8" Grid.Column="0" HorizontalAlignment="Stretch"/>
-                    <Button x:Name="deleteTransactionButton" Content="Delete Transaction" Margin="10,5,10,0" FontSize="17" Grid.ColumnSpan="2" Grid.Row="9" Grid.Column="0" HorizontalAlignment="Stretch"/>
-                    <Button x:Name="hideTransactionDetailsButton" Content="Hide Panel" Margin="10,5,10,0" FontSize="17" Grid.ColumnSpan="2" Grid.Row="10" Grid.Column="0" HorizontalAlignment="Stretch"/>
-                </Grid>
-
-            </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
         </Border>
     </Grid>
 </Window>
